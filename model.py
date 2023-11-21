@@ -34,27 +34,36 @@ class VAE(nn.Module):
         x = self.relu(self.fc1_e(x))
         x = self.relu(self.fc2_e(x))
         mu = self.fc3_mean(x)
-        std = self.fc3_std(x)
-        return mu, std
-    
-    
-    def randomSampling(mu, std):
+        log_var = self.fc3_std(x)
 
-        std = torch.exp(0.5*std)
-        eps = torch.randn_like(std)
-        return eps.mul(std).add_(mu) # return z sample
+        
+        return mu, log_var
+    
+    
+    def randomSampling(self, mu, log_var):
+
+        std = torch.exp(0.5*log_var)
+        eps = torch.randn_like(log_var)
+        samples = eps.mul(std).add_(mu)
+        
+        return  samples# return z sample
         
 
     def decoder(self, z):
+       
         
-        # z = z.view(-1, self.h2_size)
         z = self.relu(self.fc1_d(z))
-        z = self.relu(self.fc2_d(z))
-        batch_size = z.size(0)
-        z = z.view(batch_size,1,self.size_x, self.size_y)
+        z = torch.sigmoid(self.fc2_d(z))
+        
         return z
     
-
+    
+    def forward(self, img):
+        mu, log_var = self.encoder(img)
+        
+        z = self.randomSampling(mu, log_var)
+        r_img = self.decoder(z)
+        return r_img, mu, log_var
     
 
-
+   
