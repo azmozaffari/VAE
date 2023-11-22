@@ -14,3 +14,7 @@ Then generate the samples by running test.py
 ![Screenshot](image.png)
 
 
+The facinating part for me in VAE implementation is resampling function which facilitates learning mu and std.
+
+The weekness of VAE comparing to GAN is the quality of the images that is reconstructed which can be improved by adding skip connections between encoder and decoder.
+
