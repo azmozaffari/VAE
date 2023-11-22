@@ -38,6 +38,7 @@ deterministic(SEED)
 lr = 1e-3 
 batch_size = 16
 model = VAE(28,28,400,20)
+model.train()
 
 model = model.to(device)
 epochs = 101
