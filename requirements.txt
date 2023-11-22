@@ -1,0 +1,6 @@
+# get the req by 
+# pip install pipreqs
+# pipreqs .
+torch==1.13.1+cu117
+torch==1.13.1
+torchvision==0.14.1+cu117
