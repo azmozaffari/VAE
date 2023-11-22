@@ -11,3 +11,6 @@ First train the model by running train.py
 Then generate the samples by running test.py 
 
 
+![Screenshot](image.png)
+
+
