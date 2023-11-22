@@ -8,7 +8,7 @@ from torchvision import transforms
 from torchvision.utils import save_image
 from torchvision.datasets import MNIST
 import random
-
+import os
 
 from model import * 
 from loss import *
@@ -37,10 +37,10 @@ deterministic(SEED)
 
 lr = 1e-3 
 batch_size = 16
-model = VAE(28,28,1024,500)
+model = VAE(28,28,400,20)
 
 model = model.to(device)
-epochs = 100
+epochs = 101
 
 
 optimizer = optim.Adam(model.parameters(), lr)
@@ -55,8 +55,10 @@ dataloader = DataLoader(dataset, batch_size = batch_size, shuffle=True)
 def train(epochs,  model,dataloader,optimizer):
     
     
-    
-    
+    # make the directory to save the models
+    if (not os.path.exists("./models")):
+        os.mkdir("./models")
+
     for epoch in range(epochs):
         total_loss = 0
         for batch_id, data in enumerate(dataloader):
@@ -78,18 +80,17 @@ def train(epochs,  model,dataloader,optimizer):
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
-
-            # track the loss is dropping
-            # save the model in models folder
-            # how to expand this model for the RGB images like CIFAR
-            
             total_loss += loss.item() 
 
             
+        # print the average loss per epoch
         n_samples = batch_id* batch_size
         print("epoch:", epoch,  "loss is", total_loss/n_samples)
     
-        if epoch%50 == 0:
+
+        # save the model in every 50 epochs
+            
+        if epoch%50 == 0:            
             
             torch.save(model.state_dict(), './models/vae_model'+str(epoch)+'.pth')
 
@@ -98,8 +99,8 @@ def train(epochs,  model,dataloader,optimizer):
             
         
 
+if __name__ == "__main__":
 
-
-train(epochs,  model, dataloader, optimizer)
+    train(epochs,  model, dataloader, optimizer)
 
 
