@@ -16,5 +16,5 @@ Then generate the samples by running test.py
 
 
 
-The weekness of VAE comparing to GAN is the quality of the images that is reconstructed which can be improved by adding skip connections between encoder and decoder.
-The loss function also can be change from MSE to BCE which helps fast convergence.
+The weekness of VAE comparing to GAN is the quality of the images that are reconstructed. This issue can be improved by adding skip connections between encoder and decoder.
+The loss function also can be change from MSE to BCE which helps to have a fast convergence.
