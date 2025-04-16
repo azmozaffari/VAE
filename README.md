@@ -1,5 +1,5 @@
 # VAE
-This is the quick implementation of VAE for generating MNIST images.
+This is an implementation of VAE for generating MNIST images.
 
 I got some ideas from https://github.com/L1aoXingyu/pytorch-beginner/blob/master/08-AutoEncoder/Variational_autoencoder.py to write the code.
 
